@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load static %}
+{% block title %}
+    <title>Receptionist</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="container jumbotron">
+    <form method="POST">
+        {% csrf_token %}
+        <label for="name">Name :</label>
+        <input type="text" id='name' name="name">
+        <br>
+        <label for="email">email :</label>
+        <input type="email" id='email' name="email">
+        <h6>(Please enter proper Email id)</h6>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+{% endblock %}

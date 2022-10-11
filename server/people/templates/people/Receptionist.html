@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load static %}
+{% block title %}
+    <title>Receptionist</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="sound">
+
+    <audio id="welcome" autoplay>
+         <source src='{% static "people/welcome.mp3" %}' type="audio/mpeg"/>
+    </audio>
+    <audio id="aud" autoplay>
+         <source src='{% static file %}'  type="audio/mpeg"/>
+    </audio>
+
+    <audio id="meet" autoplay>
+        <source src='{% static "people/SayMeet.mp3" %}' type="audio/mpeg"/>
+   </audio>
+
+    <script>
+        var audio = document.getElementById("welcome");
+        var audio2 = document.getElementById("aud");
+        var audio3 = document.getElementById("meet");
+        audio2.pause();
+        audio3.pause();
+        audio.addEventListener("ended", function () {
+            audio2.play();
+        })
+        audio2.addEventListener("ended", function () {
+            audio3.play();
+            console.log("DOne playing")
+        })
+    </script>
+
+</div>
+
+<div class="jumbotron text-center">
+    <h2>Welcome {{ name }} !!</h2>
+    <h2>How can I help you</h2>
+    <br>
+    <h2>Do you have a meeting scheduled today</h2>
+    <h4>If you have a meeting, please enter the meeting id and code below</h4>
+    <a class="btn btn-primary" href="{% url 'people:rec' %}">Here</a>
+    <br>
+    {% for meeting in meetings %}
+    <div class="row my-2 border border-primary border-5px">
+        <div class="col-lg-8 text-left">
+            <h4>
+                {{ meeting.purpose }}
+
+            </h4>
+        </div>
+        <div class="col-lg-4">
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" value="{{ name }}" name="name">
+                <input type="hidden" value="{{meeting.pk}}" name="meeting">
+                <input type="hidden" value="ala ka" name="type">
+                <!--<a class="btn btn-danger m-2 float-right">Wait</a>-->
+                <input type="submit"class="btn btn-success m-2 float-right" value="Accept"                >
+                <!--<a class="btn btn-success m-2 float-right">Accept</a>-->
+                <input class="m-2" type="number" name="code">
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+    <br>
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" value="custom" name="type">
+        <label for="meeting">Meeting ID:</label>
+        <input id="meeting" type="number" name="meeting">
+        <br>
+        <label for="code">Code:</label>
+        <input id="code" type="number" name="code">
+        <br>
+        <input type="hidden" value="{{ name }}" name="name">
+        <input type="submit" value="Submit">
+    </form>
+
+
+
+<!--<img src='{% static "people/m.jpg" %}' alt="My image">-->
+</div>
+{% endblock%}

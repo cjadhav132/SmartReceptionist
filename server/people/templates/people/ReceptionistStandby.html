@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load static %}
+{% block title %}
+    <title>Receptionist</title>
+{% endblock %}
+
+
+
+{% block body %}
+<div class="sound">
+
+    <audio id="welcome" autoplay>
+         <source src='{% static "people/proceed.mp3" %}' type="audio/mpeg"/>
+    </audio>
+    <audio id="aud" autoplay>
+         <source src='{% static file %}'  type="audio/mpeg"/>
+    </audio>
+
+    <script>
+        var audio = document.getElementById("welcome");
+        var audio2 = document.getElementById("aud");
+        audio.pause();
+        audio2.addEventListener("ended", function () {
+            audio.play();
+        })
+    </script>
+
+</div>
+
+
+
+<div class="mx-auto text-center jumbotron">
+
+    <a href="{% url 'people:receptionist' %}" class="btn btn-success" id='wake'><h1>Wake me up !!</h1></a>
+    <br>
+    <br>
+    <h1 id="msg" class="text-danger">{{ msg }}</h1>
+    <script>
+        var msg = document.getElementById("msg")
+        setTimeout(function () {
+            msg.textContent = '';
+        },3000)
+    </script>
+</div>
+
+<script>
+    var x = 0;
+    document.getElementById("wake").addEventListener("click", myFunction);
+
+    function refresh(){
+        if(x === 0)
+            window.location.reload(1);
+        else
+            setTimeout(refresh, 3000);
+    }
+    setTimeout(refresh, 3000);
+
+    function myFunction() {
+        x = 1;
+        console.log('event read')
+    }
+ </script>
+
+{% endblock %}

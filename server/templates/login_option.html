@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title%}
+<title>Login Options</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>Log in as</h1>
+        <br>
+        <div class="row">
+            <div class="col col-lg-6 col-sm-12">
+                <a href="{% url 'login' %}">
+                    <h5>Employee</h5>
+                </a>
+            </div>
+            <div class="col col-lg-6 col-sm-12">
+                <a href="{% url 'receptionist_login' %}">
+                    <h5>Receptionist</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title%}
+<title>Meeting 45 Detail</title>
+{% endblock %}
+
+{% block body %}
+<!--<h3>just to try</h3>-->
+<div class="jumbotron">
+    <h2>{{meeting.purpose}}</h2>
+    {% if meeting.visitor != null%}
+    <div class="container">
+        <h3> with <a href="{% url 'people:show_person' pk=meeting.visitor.pk %}">{{ meeting.visitor }}</a></h3>
+    </div>
+    {% endif %}
+    <br>
+    <h4>from: &nbsp &nbsp  {{ meeting.start }}</h4>
+    <h4>end: &nbsp &nbsp &nbsp {{ meeting.end}}</h4>
+    <h4>meeting id: {{ meeting.pk }}</h4>
+    <h4>Code: &nbsp {{ meeting.code }} </h4>
+    <br>
+    <h5>Description :</h5>
+    <div class="container">
+        <p>
+            {{ meeting.description }}
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+<!--http://127.0.0.1:8000/people/meeting/3/show-->

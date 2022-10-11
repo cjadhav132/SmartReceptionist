@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load static %}
+{% block title %}
+    <title>Receptionist</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="sound">
+
+    <audio id="welcome" autoplay>
+         <source src='{% static "people/SayCode.mp3" %}' type="audio/mpeg"/>
+    </audio>
+    
+    <script>
+        var audio = document.getElementById("welcome");
+        audio.addEventListener("ended", function () {
+            // audio2.play();
+            console.log("played")
+        })
+        
+    </script>
+
+</div>
+<div class="jumbotron">
+    <h2>{{meeting.purpose}}</h2>
+    <br>
+    <h4>from: &nbsp &nbsp  {{ meeting.start }}</h4>
+    <h4>end: &nbsp &nbsp &nbsp {{ meeting.end}}</h4>
+    <h4>meeting id: {{ meeting.pk }}</h4>
+    <br>
+    <h5>Description :</h5>
+    <div class="container">
+        <p>
+            {{ meeting.description }}
+        </p>
+    </div>
+    
+    <form method="POST">
+        <input type="hidden" value="{{ meeting.pk }}" name="meetid">
+        {% csrf_token %}
+        <input class="btn btn-success" type="submit" value="Click Here" >
+        <!-- <a class="btn btn-primary" href="">Here</a> -->
+    </form>
+</div>
+{% endblock %}

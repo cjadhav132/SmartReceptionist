@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>Title</title>
+    {% endblock %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark" role="navigation" id="navbar">
+    <a class="navbar-brand" href="{% url 'index' %}">Brand</a>
+
+    <ul class="nav ml-auto text-white">
+        {% if request.user.is_superuser %}
+        <li class="nav-item">
+            <a href="{% url 'admin:index' %}" class="nav-link text-white">Admin</a>
+        </li>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'people:detail' %}">
+                Welcome {{ user.first_name }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'people:emplo_message' %}" class="nav-link text-white">
+                <i class="material-icons">chat_bubble_outline</i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'logout' %}" class="nav-link text-danger">Logout</a>
+        </li>
+
+
+        {% else %}
+            <li class="nav-item "><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+
+        {% endif %}
+    </ul>
+</nav>
+<div class="container">
+{% block body%}
+
+{% endblock %}
+</div>
+</body>
+</html>

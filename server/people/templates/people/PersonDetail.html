@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title%}
+<title>Person Details</title>
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+    <h1>Name : {{ person.name}}</h1>
+    <hr style="height: 3px;color: black;background-color: gray">
+
+    <h2>All meetings:</h2>
+    <hr style="height: 3px;color: black;background-color: gray">
+    <div class="container">
+        {% for meet in meets %}
+        <a href="{% url 'people:show_meeting' pk=meet.pk %}"><h2>{{ meet.purpose }}</h2></a>
+        <h3>with: {{ meet.employee }} </h3>
+        {% endfor %}
+    </div>
+
+
+</div>
+{% endblock %}

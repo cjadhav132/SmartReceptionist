@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block title %}
+    <title>Welcome</title>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="jumbotron text-center">
+    <a class="btn btn-success" href="{% url 'people:create_meeting' %}">
+        Schedule New Meeting
+        <!--<input type="submit" class="btn btn-success" value="Schedule New Meeting">-->
+    </a>
+</div>
+<div class="container">
+    <h2>Today's meetings :</h2>
+    <hr style="height: 3px;color: black;background-color: gray">
+    <div class="container">
+        {% for meeting in meetings %}
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{% url 'people:show_meeting' pk=meeting.pk %}">
+                    <h3>{{ meeting.purpose }}</h3>
+                </a>
+            </div>
+            <div class="col-md-6 col-12">
+
+                <h3>{{meeting.start.time}} - {{meeting.end.time}}</h3>
+                {% if meeting.visitor != null %}
+                    <p>With: <a href="{% url 'people:show_person' pk=meeting.visitor.pk %} ">{{ meeting.visitor }}</a></p>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+            <h3>No meetings today</h3>
+        {% endfor %}
+    </div>
+    <hr style="height: 3px;color: black;background-color: gray">
+    <h2>Future meetings :</h2>
+    <hr style="height: 2px;color: black;background-color: gray">
+    <div class="container">
+        {% for meeting in future_meetings %}
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{% url 'people:show_meeting' pk=meeting.pk %}">
+                    <h3>{{ meeting.purpose }}</h3>
+                </a>
+                    {% if meeting.visitor != null %}
+                        <p>with:
+                            <a href="{}">
+                                {{ meeting.visitor }}
+                            </a>
+                        </p>
+                    {% endif %}
+            </div>
+            <div class="col-md-6 col-12">
+
+                <h3>{{meeting.start.time}} - {{meeting.end.time}}</h3>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

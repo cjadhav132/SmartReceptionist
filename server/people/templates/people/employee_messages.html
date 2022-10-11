@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block title %}
+    <title>Messages</title>
+{% endblock %}
+
+
+{% block body %}
+<script>
+    setTimeout(function(){
+        window.location.reload(1);
+    }, 3000);
+ </script>
+{% for message in messages %}
+<div class="row my-2 border border-primary border-5px">
+    <div class="col-lg-8">
+        <h4>
+            {{ message.visitor.profile_created}}
+            <a href="{% url 'people:show_person' pk=message.visitor.pk %}">
+                {{ message.visitor }}
+            </a>
+            {{ message.message }}
+            {{ message.meeting.purpose}}
+        </h4>
+    </div>
+    <div class="col-lg-4">
+        <!--<a class="btn btn-danger m-2 float-right">Wait</a>-->
+        <a class="btn btn-success m-2 float-right" href="{% url 'people:invite' pk=message.pk%}">Accept</a>
+
+    </div>
+</div>
+{% endfor %}
+{% endblock%}

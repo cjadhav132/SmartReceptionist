@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title%}
+<title>Message</title>
+{% endblock %}
+
+
+{% block body %}
+
+
+    {% for message in messages %}
+    <p><b>{{ message.message }}</b><br>
+        at {{ message.created_at }}</p>
+
+    {% endfor %}
+{% endblock %}
